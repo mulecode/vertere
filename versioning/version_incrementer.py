@@ -18,7 +18,7 @@ class IncrementerParser(object):
         if not value:
             return None
         try:
-            return Incrementer[value.upper()]
+            return Incrementer[value.strip().upper()]
         except Exception:
             raise InvalidIncrementTypeException()
 

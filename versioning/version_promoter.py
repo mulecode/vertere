@@ -4,8 +4,6 @@ from versioning.version_tag import VersionTag
 
 
 class VersionPromoter(object):
-    # def __init__(self, version_tag_parser: VersionTagParser):
-    #     self.version_tag_parser = version_tag_parser
 
     def promote(self, current_version: Version, config: VersionConfig):
 
