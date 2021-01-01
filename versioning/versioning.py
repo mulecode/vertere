@@ -1,8 +1,8 @@
 import click
 
+from versioning.incrementer import IncrementerParser
 from versioning.version_config import VersionConfig, PromoterConfigLoader
 from versioning.version_git_repository import GitRepository
-from versioning.version_incrementer import IncrementerParser
 from versioning.version_parser import VersionParser
 from versioning.version_promoter import VersionPromoter
 from versioning.version_service import VersioningService

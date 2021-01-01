@@ -1,6 +1,6 @@
+from versioning.incrementer import Incrementer
 from versioning.version import Version
 from versioning.version_config import VersionConfig
-from versioning.version_incrementer import Incrementer
 from versioning.version_promoter import VersionPromoter
 from versioning.version_tag import VersionTag
 from versioning.version_tag_service import TagConfig

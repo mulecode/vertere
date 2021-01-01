@@ -1,7 +1,7 @@
 import yaml
 from os import path
 
-from versioning.version_incrementer import Incrementer, IncrementerParser
+from versioning.incrementer import Incrementer, IncrementerParser
 from versioning.version_parser import VersionParser
 from versioning.version_tag_service import TagConfig, VersionTagParser
 

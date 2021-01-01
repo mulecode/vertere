@@ -1,4 +1,4 @@
-from versioning.version_incrementer import Incrementer
+from versioning.incrementer import Incrementer
 from versioning.version_tag import VersionTag
 
 
