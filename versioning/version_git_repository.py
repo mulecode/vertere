@@ -36,6 +36,7 @@ class GitRepository(object):
         remote.push(refspec=(f':{tag_name}'))
         print(f'Tag {tag_name} deleted.')
 
+
 class GitRepositoryNotInitialisedException(Exception):
     """Git not initialised"""
     pass
