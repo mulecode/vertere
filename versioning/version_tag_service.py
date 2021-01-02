@@ -12,7 +12,6 @@ class VersionTagLoader(object):
 
     def __load_tags_configuration__(self):
         filename = resource_filename(Requirement.parse("versioning"), self.tag_config_location)
-        print(f'load_configured_tags: {filename}')
         with open(filename) as json_file:
             self.loaded_tags_data = json.load(json_file)
 
@@ -82,7 +81,6 @@ class VersionTagParser(object):
                 f'Could not parse - Tag sequencer should be bigger than 0. Found {seq}'
             )
 
-        #  TODO review this case:
         if not tag_config.with_seq and seq is not None:
             raise InvalidSemanticTagVersionException(
                 f'Could not parse - Tag {tag_name} is set with no sequencer, but found sequencer equals to {seq}'
@@ -91,7 +89,6 @@ class VersionTagParser(object):
         parsed_tag = VersionTag()
         parsed_tag.name = tag_name
         parsed_tag.weight = int(tag_config.weight) if tag_config.weight else 0
-        # parsed_tag.tag_config = tag_config
         parsed_tag.seq = int(seq) if seq else None
 
         return parsed_tag

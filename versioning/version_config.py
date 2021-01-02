@@ -32,7 +32,6 @@ class PromoterConfigLoader(object):
             return default_config
 
         config = yaml.safe_load(open(config_path))
-        print(f'Config file: {config_path} loaded - {config}')
         config_version = config.get('versioning')
 
         prefix = config_version.get('prefix') if config_version else None

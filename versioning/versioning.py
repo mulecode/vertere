@@ -58,14 +58,17 @@ def cli(action, prefix, incrementer, tag, initial_version, config_path, debug):
         config_cli_override.tag_config = version_tag_parser.find_config_by_tag_name(tag) if tag else None
         config_cli_override.incrementer = incrementer_parser.parse(incrementer) if incrementer else None
         config_cli_override.initial_version = initial_version
-        print(f'override config: {config_cli_override}')
+
+        if debug:
+            print(f'override config: {config_cli_override}')
 
         config = promoter_config_loader.load_config_from_file()
-        print(f'config: {config}')
+        if debug:
+            print(f'config: {config}')
 
         promoter_config_loader.merge(config, config_cli_override)
-
-        print(f'config merged: {config}')
+        if debug:
+            print(f'config merged: {config}')
         if action == 'read':
             click.echo(
                 str(versioning_service.read())
@@ -79,4 +82,5 @@ def cli(action, prefix, incrementer, tag, initial_version, config_path, debug):
 
     except Exception as e:
         click.echo(f'Error! {e}')
-        raise e
+        if debug:
+            raise e

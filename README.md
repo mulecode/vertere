@@ -4,46 +4,51 @@
 ### About
 
 A command line program to generate semantic versioning for Git. 
-Can be used mainly in CI/CD pipelines.
 
-### Usage example
-
-```shell
-versioning init --initial-version=1.0.0.BUILD-SNAPSHOT
-```
-
-The command about will initialise versioning for a new repository.
-Execute the next command to push the changes:
-
+### Basic usage - Initialise versioning
+Scenario - Given a project with Git initialised and with no semantic version tags.
 
 ```shell
-versioning push
+▶ versioning init init --initial-version=v1.0.0
+Initialising project with version: v1.0.0
+
 ```
 
-In consequence the program will tag `1.0.0.BUILD-SNAPSHOT` in current 
+The command above will prepare the project for a git tag `v1.0.0`
+but it won't commit either push to git. 
+
+Execute the next command to commit and push the changes to remote:
+
+```shell
+▶ versioning push
+Tag v1.0.0 pushed.
+```
+
+The push command will tag `v1.0.0` in current 
 git head branch and push to remote.
 
-## Details
 
-This program supports four cycles of versioning for the same semantic version:
+### Basic usage - Versioning Patch, Minor or Major
+Scenario - Given a project with Git initialised and already initialised with a 
+semantic version git tag.
+
+```shell
+▶ versioning init --incrementer=patch --prefix v
+Found highest tag: v1.0.0
+Next version v1.0.1
+```
+Then execute `versioning push` command to push to git.
+
+### Supported postfix
+
 - BUILD-SNAPSHOT
-- MILESTONE 1, 2, 3, ...
-- RELEASE_CANDIDATE 1, 2, 3, ...
+- M[sequencer]
+- RC[sequencer]
 - RELEASE
 
+**Details**
 
-
-## Technical Details
-
-### CLI Options
-
-```shell
---initial-version
-```
-Used to initialise a project without any semantic version in git. 
-This option requires the full `output semantic version formmat`. 
-
-```shell
---tag RELEASE_CANDIDATE
-```
-
+BUILD-SNAPSHOT - This postfix is configured to be not promotable, 
+this means that if the `highest tag` is equals to `1.0.0.BUILD-SNAPSHOT` the 
+next tag will be the same, and the push command will delete the previous tag and 
+commit it again in the HEAD of the current branch.

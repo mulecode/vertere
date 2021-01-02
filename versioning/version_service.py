@@ -59,7 +59,7 @@ class VersioningService(object):
 
         is_tag_head = self.git_repository.is_tag_head(str(current_version))
         if is_tag_head:
-            print(f'Tag {current_version} is already in HEAD commit.')
+            print(f'Cannot versioning - Tag {current_version} is already in HEAD commit.')
             return
         self.version_promoter.promote(current_version, version_config)
         print(f'Next version {current_version}')
