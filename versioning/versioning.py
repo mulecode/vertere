@@ -7,18 +7,18 @@ from versioning.version_parser import VersionParser
 from versioning.version_promoter import VersionPromoter
 from versioning.version_service import VersioningService
 from versioning.version_storage import VersionStorage
-from versioning.version_tag_service import VersionTagLoader, VersionTagParser
+from versioning.version_tag_service import VersionPostfixLoader, VersionPostfixParser
 
 
 @click.command()
 @click.argument('action', default=None, type=click.Choice(['init', 'push', 'read']))
 @click.option('--prefix', default=None, type=str)
 @click.option('--incrementer', default=None, type=str)
-@click.option('--tag', default=None, type=str)
+@click.option('--postfix', default=None, type=str)
 @click.option('--initial-version', default=None, type=str)
 @click.option('--config-path', default=None, type=str)
 @click.option('--debug', default=False, type=bool)
-def cli(action, prefix, incrementer, tag, initial_version, config_path, debug):
+def cli(action, prefix, incrementer, postfix, initial_version, config_path, debug):
     try:
 
         # initialise IoC
@@ -26,13 +26,13 @@ def cli(action, prefix, incrementer, tag, initial_version, config_path, debug):
         version_storage = VersionStorage()
         git_repository = GitRepository()
 
-        version_tag_loader = VersionTagLoader()
-        version_tag_parser = VersionTagParser(
-            version_tag_loader=version_tag_loader
+        version_postfix_loader = VersionPostfixLoader()
+        version_postfix_parser = VersionPostfixParser(
+            version_postfix_loader=version_postfix_loader
         )
 
         version_parser = VersionParser(
-            version_tag_parser=version_tag_parser
+            version_postfix_parser=version_postfix_parser
         )
         version_promoter = VersionPromoter()
         versioning_service = VersioningService(
@@ -43,7 +43,7 @@ def cli(action, prefix, incrementer, tag, initial_version, config_path, debug):
         )
         promoter_config_loader = PromoterConfigLoader(
             version_parser=version_parser,
-            version_tag_parser=version_tag_parser,
+            version_postfix_parser=version_postfix_parser,
             incrementer_parser=incrementer_parser
         )
 
@@ -51,11 +51,11 @@ def cli(action, prefix, incrementer, tag, initial_version, config_path, debug):
         promoter_config_loader.validate_config_path(config_path)
         version_parser.validate_prefix(prefix)
         version_parser.validate_version(initial_version)
-        version_tag_parser.validate_tag_name(tag)
+        version_postfix_parser.validate_postfix_name(postfix)
 
         config_cli_override = VersionConfig()
         config_cli_override.prefix = prefix
-        config_cli_override.tag_config = version_tag_parser.find_config_by_tag_name(tag) if tag else None
+        config_cli_override.postfix_config = version_postfix_parser.find_postfix_config_by_name(postfix) if postfix else None
         config_cli_override.incrementer = incrementer_parser.parse(incrementer) if incrementer else None
         config_cli_override.initial_version = initial_version
 

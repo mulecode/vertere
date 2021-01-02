@@ -1,47 +1,47 @@
 from versioning.version import Version
 from versioning.version_config import VersionConfig
-from versioning.version_tag import VersionTag
+from versioning.version_tag import VersionPostfix
 
 
 class VersionPromoter(object):
 
     def promote(self, current_version: Version, config: VersionConfig) -> None:
 
-        if current_version.tag and config.tag_config:
-            if current_version.tag.name == config.tag_config.name and not config.tag_config.promotable:
-                print(f'Tag {config.tag_config.name} not promotable - will keep same version')
+        if current_version.postfix and config.postfix_config:
+            if current_version.postfix.name == config.postfix_config.name and not config.postfix_config.promotable:
+                print(f'Postfix {config.postfix_config.name} not promotable - will keep same version')
                 return
 
         current_version.prefix = config.prefix
 
-        if not config.tag_config:
-            current_version.tag = None
+        if not config.postfix_config:
+            current_version.postfix = None
             current_version.increment_version(config.incrementer)
             return
 
-        new_tag = VersionTag()
-        new_tag.name = config.tag_config.name
-        new_tag.weight = config.tag_config.weight
+        new_postfix = VersionPostfix()
+        new_postfix.name = config.postfix_config.name
+        new_postfix.weight = config.postfix_config.weight
 
-        if config.tag_config.with_seq:
-            new_tag.increase_seq()
+        if config.postfix_config.with_seq:
+            new_postfix.increase_seq()
 
-        if not current_version.tag:
+        if not current_version.postfix:
             current_version.increment_version(config.incrementer)
-            current_version.tag = new_tag
+            current_version.postfix = new_postfix
             return
 
-        if current_version.tag.name == new_tag.name and config.tag_config.with_seq:
-            current_version.tag.increase_seq()
+        if current_version.postfix.name == new_postfix.name and config.postfix_config.with_seq:
+            current_version.postfix.increase_seq()
             return
 
-        if current_version.tag.weight < new_tag.weight:
-            current_version.tag = new_tag
+        if current_version.postfix.weight < new_postfix.weight:
+            current_version.postfix = new_postfix
             return
 
-        if current_version.tag.seq and config.tag_config.with_seq:
-            current_version.tag = new_tag
+        if current_version.postfix.seq and config.postfix_config.with_seq:
+            current_version.postfix = new_postfix
             return
 
         current_version.increment_version(config.incrementer)
-        current_version.tag = new_tag
+        current_version.postfix = new_postfix

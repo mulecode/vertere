@@ -1,105 +1,104 @@
 import json
 from pkg_resources import Requirement, resource_filename
 
-from versioning.version_tag import VersionTag
+from versioning.version_tag import VersionPostfix
 
 
-class VersionTagLoader(object):
+class VersionPostfixLoader(object):
     def __init__(self):
-        self.tag_config_location = 'data/tag_config.json'
-        self.loaded_tags_data = []
-        self.__load_tags_configuration__()
+        self.postfix_config_location = 'data/postfix_config.json'
+        self.loaded_postfixes_data = []
+        self.__load_postfix_configuration__()
 
-    def __load_tags_configuration__(self):
-        filename = resource_filename(Requirement.parse("versioning"), self.tag_config_location)
+    def __load_postfix_configuration__(self):
+        filename = resource_filename(Requirement.parse("versioning"), self.postfix_config_location)
         with open(filename) as json_file:
-            self.loaded_tags_data = json.load(json_file)
+            self.loaded_postfixes_data = json.load(json_file)
 
-    def get_tags_configuration(self):
-        return self.loaded_tags_data
+    def get_all_postfix_configuration(self):
+        return self.loaded_postfixes_data
 
 
-class VersionTagParser(object):
-    def __init__(self, version_tag_loader: VersionTagLoader):
-        self.tag_config_location = 'data/tag_config.json'
-        self.version_tag_loader = version_tag_loader
-        self.configured_tags = []
-        self.__load_configured_tags__()
+class VersionPostfixParser(object):
+    def __init__(self, version_postfix_loader: VersionPostfixLoader):
+        self.version_postfix_loader = version_postfix_loader
+        self.configured_postfixes = []
+        self.__load_configured_postfixes__()
 
-    def __load_configured_tags__(self):
-        tag_list = []
-        data = self.version_tag_loader.get_tags_configuration()
+    def __load_configured_postfixes__(self):
+        postfix_list = []
+        data = self.version_postfix_loader.get_all_postfix_configuration()
         for p in data:
-            config_parsed = self.__parse_tag_config__(p)
-            tag_list.append(config_parsed)
-        self.configured_tags = tag_list
+            config_parsed = self.__parse_postfix_config__(p)
+            postfix_list.append(config_parsed)
+        self.configured_postfixes = postfix_list
 
-    def __parse_tag_config__(self, value) -> 'TagConfig':
-        tag_config = TagConfig()
-        tag_config.name = value['name']
-        tag_config.weight = int(value['weight'])
-        tag_config.with_seq = bool(value['with_seq'])
-        tag_config.promotable = bool(value['promotable'])
-        return tag_config
+    def __parse_postfix_config__(self, value) -> 'PostfixConfig':
+        postfix_config = PostfixConfig()
+        postfix_config.name = value['name']
+        postfix_config.weight = int(value['weight'])
+        postfix_config.with_seq = bool(value['with_seq'])
+        postfix_config.promotable = bool(value['promotable'])
+        return postfix_config
 
-    def validate_tag_name(self, tag_name: str):
-        if not tag_name:
+    def validate_postfix_name(self, postfix_name: str):
+        if not postfix_name:
             return
-        if not self.find_config_by_tag_name(tag_name):
-            raise InvalidSemanticTagVersionException(
-                f'Unpassable tag {tag_name}. available options: [{self.available_tags()}]'
+        if not self.find_postfix_config_by_name(postfix_name):
+            raise InvalidVersionPostfixException(
+                f'Unpassable postfix {postfix_name}. available options: [{self.get_postfixes_joined()}]'
             )
 
-    def find_config_by_tag_name(self, tag_name) -> 'TagConfig':
+    def find_postfix_config_by_name(self, postfix_name) -> 'PostfixConfig':
         return next(
             filter(
-                lambda t: t.name == tag_name, self.configured_tags
+                lambda t: t.name == postfix_name, self.configured_postfixes
             ), None)
 
-    def available_tags(self) -> str:
-        available_tags = map(lambda t: t.name, self.configured_tags)
-        return ', '.join(available_tags)
+    def get_postfixes_joined(self) -> str:
+        postfix_list = map(lambda t: t.name, self.configured_postfixes)
+        return ', '.join(postfix_list)
 
     def count(self) -> int:
-        return len(list(self.configured_tags))
+        return len(list(self.configured_postfixes))
 
-    def parse_tag(self, tag_name, seq) -> VersionTag:
-        tag_config = self.find_config_by_tag_name(tag_name)
+    def parse_postfix(self, postfix_name, seq) -> VersionPostfix:
+        postfix_config = self.find_postfix_config_by_name(postfix_name)
 
-        if not tag_config:
-            raise InvalidSemanticTagVersionException(
-                f'Could not parse - invalid tag {tag_name}, available options: [{self.available_tags()}]'
+        if not postfix_config:
+            raise InvalidVersionPostfixException(
+                f'Could not parse - Invalid postfix {postfix_name}, available options: [{self.get_postfixes_joined()}]'
             )
 
-        if tag_config.with_seq and seq is None:
-            raise InvalidSemanticTagVersionException(
-                f'Could not parse - Tag {tag_name} is set with no sequencer. Found sequencer set to {seq}'
+        if postfix_config.with_seq and seq is None:
+            raise InvalidVersionPostfixException(
+                f'Could not parse - Postfix {postfix_name} is set with no sequencer. Found sequencer set to {seq}'
             )
 
-        if tag_config.with_seq and (seq is not None and int(seq) <= 0):
-            raise InvalidSemanticTagVersionException(
-                f'Could not parse - Tag sequencer should be bigger than 0. Found {seq}'
+        if postfix_config.with_seq and (seq is not None and int(seq) <= 0):
+            raise InvalidVersionPostfixException(
+                f'Could not parse - Postfix sequencer should be bigger than 0. Found {seq}'
             )
 
-        if not tag_config.with_seq and seq is not None:
-            raise InvalidSemanticTagVersionException(
-                f'Could not parse - Tag {tag_name} is set with no sequencer, but found sequencer equals to {seq}'
+        if not postfix_config.with_seq and seq is not None:
+            raise InvalidVersionPostfixException(
+                f'Could not parse - Postfix {postfix_name} is set with no sequencer, but found sequencer equals to {seq}'
             )
 
-        parsed_tag = VersionTag()
-        parsed_tag.name = tag_name
-        parsed_tag.weight = int(tag_config.weight) if tag_config.weight else 0
-        parsed_tag.seq = int(seq) if seq else None
+        parsed_postfix = VersionPostfix()
+        parsed_postfix.name = postfix_name
+        parsed_postfix.weight = int(postfix_config.weight) if postfix_config.weight else 0
+        parsed_postfix.seq = int(seq) if seq else None
 
-        return parsed_tag
+        return parsed_postfix
 
 
-class InvalidSemanticTagVersionException(Exception):
-    """Invalid tag semantic version"""
+class InvalidVersionPostfixException(Exception):
+    """Invalid version postfix"""
     pass
 
 
-class TagConfig(object):
+class PostfixConfig(object):
     def __init__(self):
         self.name = ''
         self.weight = 1

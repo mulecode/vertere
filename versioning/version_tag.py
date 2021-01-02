@@ -1,4 +1,4 @@
-class VersionTag(object):
+class VersionPostfix(object):
     name: str = None
     weight: int = None
     seq: int = None

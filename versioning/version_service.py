@@ -22,8 +22,8 @@ class VersioningService(object):
     def push(self):
         current_version = self.version_storage.read()
         current_version_parsed = self.version_parser.parse(current_version)
-        tag_config = self.version_parser.get_version_tag_parser().find_config_by_tag_name(
-            current_version_parsed.tag.name
+        postfix_config = self.version_parser.get_version_postfix_parser().find_postfix_config_by_name(
+            current_version_parsed.postfix.name
         )
         all_tags = self.git_repository.get_tags()
         if all_tags:
@@ -33,7 +33,7 @@ class VersioningService(object):
                 print(f'Cannot push - Tag {current_version} is already in HEAD commit.')
                 return
 
-        if not tag_config.promotable and all_tags:
+        if not postfix_config.promotable and all_tags:
             print(f'Will delete tag {current_version} and tag again')
             self.git_repository.delete_tag(current_version)
 
@@ -68,10 +68,10 @@ class VersioningService(object):
     def __get_highest_semantic__(self, tags):
         if not tags:
             return None
-        tags_filtered = list(filter(lambda t: self.version_parser.is_version(t), tags))
-        if not tags_filtered:
+        git_tags_filtered = list(filter(lambda t: self.version_parser.is_version(t), tags))
+        if not git_tags_filtered:
             return None
-        tags_mapped = map(lambda v: self.version_parser.parse(v), tags_filtered)
+        tags_mapped = map(lambda v: self.version_parser.parse(v), git_tags_filtered)
         return sorted(tags_mapped, key=lambda t: t.to_hash(), reverse=True)[0]
 
     def __require_non_none__(self, value, error_message):

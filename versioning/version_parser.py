@@ -1,7 +1,7 @@
 import re
 
 from versioning.version import Version
-from versioning.version_tag_service import VersionTagParser
+from versioning.version_tag_service import VersionPostfixParser
 
 
 class InvalidVersionPrefixException(Exception):
@@ -15,10 +15,10 @@ class InvalidSemanticVersionException(Exception):
 
 
 class VersionParser(object):
-    def __init__(self, version_tag_parser: VersionTagParser):
+    def __init__(self, version_postfix_parser: VersionPostfixParser):
         self.regex_prefix_only = r'^([a-zA-Z]+)$'
         self.regex_semantic = r'^([a-zA-Z]+)?((\d+)(\.)(\d+)(\.)(\d+))((\.)(\D+))?(\d+)?$'
-        self.version_tag_parser = version_tag_parser
+        self.version_postfix_parser = version_postfix_parser
 
     def validate_version(self, value):
         if not value:
@@ -50,7 +50,7 @@ class VersionParser(object):
         major = search_result.group(3)
         minor = search_result.group(5)
         patch = search_result.group(7)
-        tag_name = search_result.group(10)
+        postfix_name = search_result.group(10)
         seq = search_result.group(11)
 
         # print(f'parsed: {prefix} {major} {minor} {patch} {tag_name} {seq}')
@@ -61,11 +61,11 @@ class VersionParser(object):
         parsed_version.minor = int(minor)
         parsed_version.patch = int(patch)
 
-        if tag_name:
-            parsed_tag = self.version_tag_parser.parse_tag(tag_name, seq)
-            parsed_version.tag = parsed_tag
+        if postfix_name:
+            parsed_postfix = self.version_postfix_parser.parse_postfix(postfix_name, seq)
+            parsed_version.postfix = parsed_postfix
 
         return parsed_version
 
-    def get_version_tag_parser(self) -> VersionTagParser:
-        return self.version_tag_parser
+    def get_version_postfix_parser(self) -> VersionPostfixParser:
+        return self.version_postfix_parser

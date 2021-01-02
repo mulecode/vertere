@@ -4,7 +4,7 @@ from versioning.incrementer import Incrementer
 from versioning.version_config import VersionConfig
 from versioning.version_parser import VersionParser
 from versioning.version_promoter import VersionPromoter
-from versioning.version_tag_service import VersionTagLoader, VersionTagParser
+from versioning.version_tag_service import VersionPostfixLoader, VersionPostfixParser
 
 from_scenario_1 = '1.2.3'
 from_scenario_2 = '1.2.3.RELEASE'
@@ -192,17 +192,17 @@ PATCH = Incrementer.PATCH
     ],
 )
 def test_promote_with(current, incrementer, tag, expected_value):
-    version_tag_loader = VersionTagLoader()
-    version_tag_parser = VersionTagParser(
-        version_tag_loader=version_tag_loader
+    version_tag_loader = VersionPostfixLoader()
+    version_tag_parser = VersionPostfixParser(
+        version_postfix_loader=version_tag_loader
     )
     version_parser = VersionParser(
-        version_tag_parser=version_tag_parser
+        version_postfix_parser=version_tag_parser
     )
-    version_tag_parser.find_config_by_tag_name(tag)
+    version_tag_parser.find_postfix_config_by_name(tag)
     current_parsed = version_parser.parse(current)
 
-    tag_config = version_tag_parser.find_config_by_tag_name(tag)
+    tag_config = version_tag_parser.find_postfix_config_by_name(tag)
     version_config = given_version_config('v', incrementer, tag_config)
 
     promoter = VersionPromoter()
@@ -215,5 +215,5 @@ def given_version_config(prefix='', incrementer=Incrementer.PATCH, tag_config=No
     version_config = VersionConfig()
     version_config.prefix = prefix
     version_config.incrementer = incrementer
-    version_config.tag_config = tag_config
+    version_config.postfix_config = tag_config
     return version_config

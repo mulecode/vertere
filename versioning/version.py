@@ -1,5 +1,5 @@
 from versioning.incrementer import Incrementer
-from versioning.version_tag import VersionTag
+from versioning.version_tag import VersionPostfix
 
 
 def justify(value):
@@ -11,10 +11,10 @@ class Version(object):
     major = 1
     minor = 0
     patch = 0
-    tag: VersionTag = None
+    postfix: VersionPostfix = None
 
     def to_hash(self):
-        if not self.tag:
+        if not self.postfix:
             return (
                     justify(self.major) +
                     justify(self.minor) +
@@ -26,18 +26,15 @@ class Version(object):
                 justify(self.major) +
                 justify(self.minor) +
                 justify(self.patch) +
-                justify(self.tag.weight) +
-                justify(self.tag.seq)
+                justify(self.postfix.weight) +
+                justify(self.postfix.seq)
         )
 
     def __str__(self):
         base_str = f'{self.prefix}{self.major}.{self.minor}.{self.patch}'
-        if self.tag:
-            return f'{base_str}.{self.tag}'
+        if self.postfix:
+            return f'{base_str}.{self.postfix}'
         return base_str
-
-    # def reset_version_seq(self):
-    #     self.seq = 1
 
     def increment_version(self, incrementer: Incrementer):
         if incrementer == Incrementer.PATCH:
