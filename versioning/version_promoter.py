@@ -7,17 +7,17 @@ class VersionPromoter(object):
 
     def promote(self, current_version: Version, config: VersionConfig) -> None:
 
+        if current_version.tag and config.tag_config:
+            if current_version.tag.name == config.tag_config.name and not config.tag_config.promotable:
+                print(f'Tag {config.tag_config.name} not promotable - will keep same version')
+                return
+
         current_version.prefix = config.prefix
 
         if not config.tag_config:
             current_version.tag = None
             current_version.increment_version(config.incrementer)
             return
-
-        if current_version.tag:
-            if current_version.tag.name == config.tag_config.name and not config.tag_config.promotable:
-                print(f'Tag {config.tag_config.name} not promotable - will keep same version')
-                return
 
         new_tag = VersionTag()
         new_tag.name = config.tag_config.name

@@ -25,15 +25,12 @@ class VersioningService(object):
         tag_config = self.version_parser.get_version_tag_parser().find_config_by_tag_name(
             current_version_parsed.tag.name
         )
-
-        if not tag_config.promotable:
+        all_tags = self.git_repository.get_tags()
+        if not tag_config.promotable and all_tags:
             print(f'Will delete tag {current_version} and tag again')
-            # TODO implement here
-            return
+            self.git_repository.delete_tag(current_version)
 
-        print(f'Pushing tag: {current_version}')
-        # TODO uncomment
-        # self.git_repository.tag(current_version)
+        self.git_repository.tag(current_version)
 
     def init(self, version_config: VersionConfig):
         self.git_repository.validate_git_initialised()

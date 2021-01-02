@@ -30,6 +30,11 @@ class GitRepository(object):
         remote.push(refspec=(tag_name))
         print(f'Tag {tag_name} pushed.')
 
+    def delete_tag(self, tag_name: str):
+        self.git_repository.delete_tag(tag_name)
+        remote = self.git_repository.remote(name='origin')
+        remote.push(refspec=(f':{tag_name}'))
+        print(f'Tag {tag_name} deleted.')
 
 class GitRepositoryNotInitialisedException(Exception):
     """Git not initialised"""

@@ -165,7 +165,7 @@ PATCH = Incrementer.PATCH
                      id=f'{from_scenario_3} to {MAJOR} incrementer and {SNAPSHOT} tag'),
         pytest.param(from_scenario_4, MAJOR, SNAPSHOT, 'v2.0.0.BUILD-SNAPSHOT',
                      id=f'{from_scenario_4} to {MAJOR} incrementer and {SNAPSHOT} tag'),
-        pytest.param(from_scenario_5, MAJOR, SNAPSHOT, 'v1.2.3.BUILD-SNAPSHOT',
+        pytest.param(from_scenario_5, MAJOR, SNAPSHOT, '1.2.3.BUILD-SNAPSHOT',
                      id=f'{from_scenario_5} to {MAJOR} incrementer and {SNAPSHOT} tag'),
 
         pytest.param(from_scenario_1, MINOR, SNAPSHOT, 'v1.3.0.BUILD-SNAPSHOT',
@@ -176,7 +176,7 @@ PATCH = Incrementer.PATCH
                      id=f'{from_scenario_3} to {MINOR} incrementer and {SNAPSHOT} tag'),
         pytest.param(from_scenario_4, MINOR, SNAPSHOT, 'v1.3.0.BUILD-SNAPSHOT',
                      id=f'{from_scenario_4} to {MINOR} incrementer and {SNAPSHOT} tag'),
-        pytest.param(from_scenario_5, MINOR, SNAPSHOT, 'v1.2.3.BUILD-SNAPSHOT',
+        pytest.param(from_scenario_5, MINOR, SNAPSHOT, '1.2.3.BUILD-SNAPSHOT',
                      id=f'{from_scenario_5} to {MINOR} incrementer and {SNAPSHOT} tag'),
 
         pytest.param(from_scenario_1, PATCH, SNAPSHOT, 'v1.2.4.BUILD-SNAPSHOT',
@@ -187,7 +187,7 @@ PATCH = Incrementer.PATCH
                      id=f'{from_scenario_3} to {PATCH} incrementer and {SNAPSHOT} tag'),
         pytest.param(from_scenario_4, PATCH, SNAPSHOT, 'v1.2.4.BUILD-SNAPSHOT',
                      id=f'{from_scenario_4} to {PATCH} incrementer and {SNAPSHOT} tag'),
-        pytest.param(from_scenario_5, PATCH, SNAPSHOT, 'v1.2.3.BUILD-SNAPSHOT',
+        pytest.param(from_scenario_5, PATCH, SNAPSHOT, '1.2.3.BUILD-SNAPSHOT',
                      id=f'{from_scenario_5} to {PATCH} incrementer and {SNAPSHOT} tag'),
     ],
 )
