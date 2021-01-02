@@ -26,6 +26,13 @@ class VersioningService(object):
             current_version_parsed.tag.name
         )
         all_tags = self.git_repository.get_tags()
+        if all_tags:
+            current_version = self.__get_highest_semantic__(tags=all_tags)
+            is_tag_head = self.git_repository.is_tag_head(str(current_version))
+            if is_tag_head:
+                print(f'Cannot push - Tag {current_version} is already in HEAD commit.')
+                return
+
         if not tag_config.promotable and all_tags:
             print(f'Will delete tag {current_version} and tag again')
             self.git_repository.delete_tag(current_version)
