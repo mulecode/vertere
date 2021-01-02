@@ -1,5 +1,5 @@
 from versioning.incrementer import Incrementer
-from versioning.version_tag import VersionPostfix
+from versioning.version_postfix import VersionPostfix
 
 
 def justify(value):

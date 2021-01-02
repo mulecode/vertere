@@ -1,6 +1,6 @@
 from versioning.version import Version
 from versioning.version_config import VersionConfig
-from versioning.version_tag import VersionPostfix
+from versioning.version_postfix import VersionPostfix
 
 
 class VersionPromoter(object):

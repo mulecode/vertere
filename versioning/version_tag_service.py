@@ -1,7 +1,7 @@
 import json
 from pkg_resources import Requirement, resource_filename
 
-from versioning.version_tag import VersionPostfix
+from versioning.version_postfix import VersionPostfix
 
 
 class VersionPostfixLoader(object):
