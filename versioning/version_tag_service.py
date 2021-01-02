@@ -90,8 +90,9 @@ class VersionTagParser(object):
 
         parsed_tag = VersionTag()
         parsed_tag.name = tag_name
-        parsed_tag.weight = tag_config.weight
-        parsed_tag.seq = seq
+        parsed_tag.weight = int(tag_config.weight) if tag_config.weight else 0
+        # parsed_tag.tag_config = tag_config
+        parsed_tag.seq = int(seq) if seq else None
 
         return parsed_tag
 
