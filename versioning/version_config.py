@@ -3,7 +3,7 @@ from os import path
 
 from versioning.incrementer import Incrementer, IncrementerParser
 from versioning.version_parser import VersionParser
-from versioning.version_tag_service import PostfixConfig, VersionPostfixParser
+from versioning.version_postfix_parser import PostfixConfig, VersionPostfixParser
 
 
 class PromoterConfigLoader(object):

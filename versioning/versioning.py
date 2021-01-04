@@ -4,10 +4,10 @@ from versioning.git_repository import GitRepository
 from versioning.incrementer import IncrementerParser
 from versioning.version_config import VersionConfig, PromoterConfigLoader
 from versioning.version_parser import VersionParser
+from versioning.version_postfix_parser import VersionPostfixLoader, VersionPostfixParser
 from versioning.version_promoter import VersionPromoter
 from versioning.version_service import VersioningService
 from versioning.version_storage import VersionStorage
-from versioning.version_tag_service import VersionPostfixLoader, VersionPostfixParser
 
 
 @click.command()
@@ -69,10 +69,9 @@ def cli(action, prefix, incrementer, postfix, initial_version, config_path, debu
         promoter_config_loader.merge(config, config_cli_override)
         if debug:
             print(f'config merged: {config}')
+
         if action == 'read':
-            click.echo(
-                str(versioning_service.read())
-            )
+            click.echo(str(versioning_service.read()))
 
         if action == 'init':
             versioning_service.init(config)

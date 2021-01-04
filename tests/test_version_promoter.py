@@ -4,8 +4,8 @@ from versioning.incrementer import Incrementer
 from versioning.version_config import VersionConfig
 from versioning.version_parser import VersionParser
 from versioning.version_postfix_loader import VersionPostfixLoader
+from versioning.version_postfix_parser import VersionPostfixParser
 from versioning.version_promoter import VersionPromoter
-from versioning.version_tag_service import VersionPostfixParser
 
 from_scenario_1 = '1.2.3'
 from_scenario_2 = '1.2.3.RELEASE'
