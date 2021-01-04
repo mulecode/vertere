@@ -1,7 +1,7 @@
 import re
 
-from versioning.version import Version
-from versioning.version_postfix_parser import VersionPostfixParser
+from vertere.version import Version
+from vertere.version_postfix_parser import VersionPostfixParser
 
 
 class InvalidVersionPrefixException(Exception):

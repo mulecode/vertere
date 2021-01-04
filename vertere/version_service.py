@@ -1,9 +1,9 @@
-from versioning.git_repository import GitRepository
-from versioning.version import Version
-from versioning.version_config import VersionConfig
-from versioning.version_parser import VersionParser
-from versioning.version_promoter import VersionPromoter
-from versioning.version_storage import VersionStorage
+from vertere.git_repository import GitRepository
+from vertere.version import Version
+from vertere.version_config import VersionConfig
+from vertere.version_parser import VersionParser
+from vertere.version_promoter import VersionPromoter
+from vertere.version_storage import VersionStorage
 
 
 class VersioningService(object):

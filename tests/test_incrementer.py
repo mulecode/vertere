@@ -1,6 +1,6 @@
 import pytest
 
-from versioning.incrementer import IncrementerParser, InvalidIncrementTypeException
+from vertere.incrementer import IncrementerParser, InvalidIncrementTypeException
 
 
 @pytest.mark.parametrize(

@@ -1,9 +1,9 @@
 import yaml
 from os import path
 
-from versioning.incrementer import Incrementer, IncrementerParser
-from versioning.version_parser import VersionParser
-from versioning.version_postfix_parser import PostfixConfig, VersionPostfixParser
+from vertere.incrementer import Incrementer, IncrementerParser
+from vertere.version_parser import VersionParser
+from vertere.version_postfix_parser import PostfixConfig, VersionPostfixParser
 
 
 class PromoterConfigLoader(object):

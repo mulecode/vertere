@@ -1,13 +1,13 @@
 import click
 
-from versioning.git_repository import GitRepository
-from versioning.incrementer import IncrementerParser
-from versioning.version_config import VersionConfig, PromoterConfigLoader
-from versioning.version_parser import VersionParser
-from versioning.version_postfix_parser import VersionPostfixLoader, VersionPostfixParser
-from versioning.version_promoter import VersionPromoter
-from versioning.version_service import VersioningService
-from versioning.version_storage import VersionStorage
+from vertere.git_repository import GitRepository
+from vertere.incrementer import IncrementerParser
+from vertere.version_config import VersionConfig, PromoterConfigLoader
+from vertere.version_parser import VersionParser
+from vertere.version_postfix_parser import VersionPostfixLoader, VersionPostfixParser
+from vertere.version_promoter import VersionPromoter
+from vertere.version_service import VersioningService
+from vertere.version_storage import VersionStorage
 
 
 @click.command()

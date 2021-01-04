@@ -1,5 +1,5 @@
-from versioning.version_postfix import VersionPostfix
-from versioning.version_postfix_loader import VersionPostfixLoader
+from vertere.version_postfix import VersionPostfix
+from vertere.version_postfix_loader import VersionPostfixLoader
 
 
 class VersionPostfixParser(object):

@@ -10,7 +10,7 @@ class VersionPostfixLoader(object):
         self.__load_postfix_configuration__()
 
     def __load_postfix_configuration__(self):
-        filename = resource_filename(Requirement.parse("versioning"), self.postfix_config_location)
+        filename = resource_filename(Requirement.parse("vertere"), self.postfix_config_location)
         with open(filename) as json_file:
             self.loaded_postfixes_data = json.load(json_file)
 

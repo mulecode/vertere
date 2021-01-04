@@ -1,6 +1,6 @@
-from versioning.version import Version
-from versioning.version_config import VersionConfig
-from versioning.version_postfix import VersionPostfix
+from vertere.version import Version
+from vertere.version_config import VersionConfig
+from vertere.version_postfix import VersionPostfix
 
 
 class VersionPromoter(object):

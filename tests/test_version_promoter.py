@@ -1,11 +1,11 @@
 import pytest as pytest
 
-from versioning.incrementer import Incrementer
-from versioning.version_config import VersionConfig
-from versioning.version_parser import VersionParser
-from versioning.version_postfix_loader import VersionPostfixLoader
-from versioning.version_postfix_parser import VersionPostfixParser
-from versioning.version_promoter import VersionPromoter
+from vertere.incrementer import Incrementer
+from vertere.version_config import VersionConfig
+from vertere.version_parser import VersionParser
+from vertere.version_postfix_loader import VersionPostfixLoader
+from vertere.version_postfix_parser import VersionPostfixParser
+from vertere.version_promoter import VersionPromoter
 
 from_scenario_1 = '1.2.3'
 from_scenario_2 = '1.2.3.RELEASE'

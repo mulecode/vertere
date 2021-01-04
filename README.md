@@ -1,4 +1,4 @@
-# Versioning CLI
+# Vertere
 ### Semantic Versioning CLI tool
 
 ### About
@@ -9,7 +9,7 @@ A command line program to generate semantic versioning for Git.
 Scenario - Given a project with Git initialised and with no semantic version tags.
 
 ```shell
-▶ versioning init --initial-version=v1.0.0
+▶ vertere init --initial-version=v1.0.0
 Initialising project with version: v1.0.0
 
 ```
@@ -20,7 +20,7 @@ but it won't commit either push to git.
 Execute the next command to commit and push the changes to remote:
 
 ```shell
-▶ versioning push
+▶ vertere push
 Tag v1.0.0 pushed.
 ```
 
@@ -33,18 +33,18 @@ Scenario - Given a project with Git initialised and already initialised with a
 semantic version git tag.
 
 ```shell
-▶ versioning init --incrementer=patch --prefix v
+▶ vertere init --incrementer=patch --prefix v
 Found highest tag: v1.0.0
 Next version v1.0.1
 ```
-Then execute `versioning push` command to push to git.
+Then execute `vertere push` command to push to git.
 
 ### Supported prefix
 
-Versioning CLI supports prefixes that can change how to print the version.
+Vertere supports prefixes that can change how to print the version.
 
 ```shell
-▶ versioning init --prefix v
+▶ vertere init --prefix v
 ```
 
 **Important!** Prefixes should contain string values only and no blank spaces.
@@ -70,7 +70,7 @@ next tag will be the same, and the push command will delete the previous tag and
 commit it again in the HEAD of the current branch.
  
 Milestone and Release-Candidate (M and RC) - Those are postfixes with auto sequencers,
-if the latest tag have same postfix (M or RC). The `versioning init` command will
+if the latest tag have same postfix (M or RC). The `vertere init` command will
 incrementer the sequencer only. example from a tag `1.2.3RC4` -> `1.2.3RC5`
 
 ### Postfix weights Details
