@@ -1,6 +1,6 @@
+from versioning.git_repository import GitRepository
 from versioning.version import Version
 from versioning.version_config import VersionConfig
-from versioning.version_git_repository import GitRepository
 from versioning.version_parser import VersionParser
 from versioning.version_promoter import VersionPromoter
 from versioning.version_storage import VersionStorage
