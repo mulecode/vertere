@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name='vertere',
-    packages=find_packages(include=['vertere']),
+    packages=find_packages(include=['vertere', 'data']),
     version='1.0.0',
     description='Vertere is a simple semantic versioning cli program that uses git tags to versioning',
     long_description=long_description,
@@ -27,7 +27,8 @@ setup(
     ],
     test_suite='tests',
     include_package_data=True,
-    package_data={'vertere': ['data/*.json']},
+    package_data={'': ['data/*.json']},
+    # package_data={'vertere': ['data/*.json']},
     entry_points={
         'console_scripts': [
             'vertere = vertere.vertere:cli'

@@ -1,6 +1,5 @@
+import os
 import json
-
-from pkg_resources import Requirement, resource_filename
 
 
 class VersionPostfixLoader(object):
@@ -9,8 +8,14 @@ class VersionPostfixLoader(object):
         self.loaded_postfixes_data = []
         self.__load_postfix_configuration__()
 
+    # def __load_postfix_configuration__(self):
+    #     filename = resource_filename(Requirement.parse("vertere"), self.postfix_config_location)
+    #     with open(filename) as json_file:
+    #         self.loaded_postfixes_data = json.load(json_file)
+
     def __load_postfix_configuration__(self):
-        filename = resource_filename(Requirement.parse("vertere"), self.postfix_config_location)
+        root = os.path.abspath(os.path.dirname(__file__))
+        filename = os.path.join(root, self.postfix_config_location)
         with open(filename) as json_file:
             self.loaded_postfixes_data = json.load(json_file)
 

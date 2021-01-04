@@ -31,11 +31,15 @@ package:
 # Publishing
 ################################################################################
 
-publish-required-install:
+install-publish-required:
 	python3 -m pip install --user --upgrade twine
 
 publish-testpy:
 	python3 -m twine upload --repository testpypi dist/*
+
+################################################################################
+# Installing from test Python repository
+################################################################################
 
 # --no-deps example-pkg-YOUR-USERNAME-HERE
 install-testpy:
