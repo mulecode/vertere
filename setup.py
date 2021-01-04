@@ -7,11 +7,12 @@ setup(
     name='vertere',
     packages=find_packages(include=['vertere', 'data']),
     version='1.0.0',
-    description='Vertere is a simple semantic versioning cli program that uses git tags to versioning',
+    description='Vertere is a simple semantic versioning cli program that uses git tags for persisting',
     long_description=long_description,
+    long_description_content_type='text/markdown',
     author='Rafael Mule',
     author_email='rafael@mulecode.co.uk',
-    url='github.com',
+    url='https://github.com/mulecode/vertere',
     license='MIT',
     install_requires=[
         'click==7.1.2',
@@ -28,10 +29,15 @@ setup(
     test_suite='tests',
     include_package_data=True,
     package_data={'': ['data/*.json']},
-    # package_data={'vertere': ['data/*.json']},
     entry_points={
         'console_scripts': [
             'vertere = vertere.vertere:cli'
         ]
-    }
+    },
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "Operating System :: OS Independent",
+    ],
+    python_requires='>=3.6'
 )

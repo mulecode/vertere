@@ -9,9 +9,8 @@ A command line program to generate semantic versioning for Git.
 Scenario - Given a project with Git initialised and with no semantic version tags.
 
 ```shell
-▶ vertere init --initial-version=v1.0.0
+> vertere init --initial-version=v1.0.0
 Initialising project with version: v1.0.0
-
 ```
 
 The command above will prepare the project for a git tag `v1.0.0`
@@ -20,7 +19,7 @@ but it won't commit either push to git.
 Execute the next command to commit and push the changes to remote:
 
 ```shell
-▶ vertere push
+> vertere push
 Tag v1.0.0 pushed.
 ```
 
@@ -33,7 +32,7 @@ Scenario - Given a project with Git initialised and already initialised with a
 semantic version git tag.
 
 ```shell
-▶ vertere init --incrementer=patch --prefix v
+> vertere init --incrementer=patch --prefix v
 Found highest tag: v1.0.0
 Next version v1.0.1
 ```
@@ -44,7 +43,7 @@ Then execute `vertere push` command to push to git.
 Vertere supports prefixes that can change how to print the version.
 
 ```shell
-▶ vertere init --prefix v
+> vertere init --prefix v
 ```
 
 **Important!** Prefixes should contain string values only and no blank spaces.

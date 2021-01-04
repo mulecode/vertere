@@ -2,7 +2,7 @@
 # Developing
 ################################################################################
 
-install:
+install-localy:
 	pip3 install -e .
 
 uninstall:
@@ -17,11 +17,15 @@ requirements-install:
 requirements-uninstall:
 	pip3 uninstall -r requirements.txt
 
+test-readme-renderer:
+	pip3 install --user --upgrade readme-renderer && \
+	python3 -m readme_renderer ./README.md -o ./README.html
+
 ################################################################################
 # Packaging
 ################################################################################
 
-package-required-install:
+install-package-dependency:
 	python3 -m pip install --user --upgrade setuptools wheel
 
 package:
@@ -31,7 +35,7 @@ package:
 # Publishing
 ################################################################################
 
-install-publish-required:
+install-publish-dependency:
 	python3 -m pip install --user --upgrade twine
 
 publish-testpy:
@@ -41,6 +45,15 @@ publish-testpy:
 # Installing from test Python repository
 ################################################################################
 
-# --no-deps example-pkg-YOUR-USERNAME-HERE
-install-testpy:
-	python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps versioning-mulecode
+install-vertere-testpy:
+	python3 -m pip install -i https://test.pypi.org/simple/ vertere
+
+################################################################################
+# Installing from Python repository
+################################################################################
+
+install-vertere:
+	python3 -m pip install -i https://test.pypi.org/simple/ vertere
+
+uninstall:
+	python3 -m pip uninstall vertere
