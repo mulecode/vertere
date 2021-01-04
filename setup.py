@@ -6,6 +6,8 @@ setup(
     version='1.0.0',
     description='My first Python library',
     author='Rafael Mule',
+    author_email='rafael@mulecode.co.uk',
+    url='github.com',
     license='MIT',
     install_requires=[
         'click==7.1.2',
