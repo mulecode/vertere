@@ -75,22 +75,33 @@ def validate_initial_version(ctx, param, value):
         raise click.BadParameter(f'Incrementer {value} does not exists.')
 
 
+help_description = 'Value that will be displayed as prefix of a version. ' \
+                   'Example.: setting this options to --prefix=v, the version will' \
+                   ' be displayed as v1.2.3'
+
+help_incrementer = 'Value that dictates how the version will be incremented. ' \
+                   'Default value: PATCH'
+
+help_config_path = 'sdfsdf'
+help_initial_version = 'sdfsdf'
+help_postfix = 'sdfsdf'
+help_action = 'sdf'
+
+
 @click.command()
 @click.argument('action', default=None,
                 type=click.Choice(['init', 'push', 'read']))
-@click.option('--prefix',
-              default=None,
-              type=str,
-              callback=validate_prefix)
+@click.option('--prefix', default=None, type=str,
+              callback=validate_prefix, help=help_description)
 @click.option('--incrementer', default=None,
               type=click.Choice(Incrementer.__members__, case_sensitive=False),
-              callback=validate_incrementer)
+              callback=validate_incrementer, help=help_incrementer)
 @click.option('--postfix', default=None, type=str,
-              callback=validate_postfix)
+              callback=validate_postfix, help=help_postfix)
 @click.option('--initial-version', default=None, type=str,
-              callback=validate_initial_version)
+              callback=validate_initial_version, help=help_initial_version)
 @click.option('--config-path', default=None, type=str,
-              callback=validate_config_path)
+              callback=validate_config_path, help=help_config_path)
 @click.option('--debug', default=False, type=bool)
 def cli(action, prefix, incrementer, postfix, initial_version, config_path, debug):
     try:
