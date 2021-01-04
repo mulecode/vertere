@@ -1,25 +1,25 @@
 [
   {
     "name": "BUILD-SNAPSHOT",
-    "weight": 1,
+    "weight": 10,
     "with_seq": false,
     "promotable" : false
   },
   {
     "name": "M",
-    "weight": 2,
+    "weight": 20,
     "with_seq": true,
     "promotable" : true
   },
   {
     "name": "RC",
-    "weight": 3,
+    "weight": 30,
     "with_seq": true,
     "promotable" : true
   },
   {
     "name": "RELEASE",
-    "weight": 4,
+    "weight": 40,
     "with_seq": false,
     "promotable" : true
   }
