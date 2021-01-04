@@ -2,23 +2,23 @@
 # Developing
 ################################################################################
 
-install-localy:
-	pip3 install -e .
+install-locally:
+	python3 -m pip install -e .
 
 uninstall:
-	pip3 uninstall vertere
+	python3 -m pip uninstall vertere
 
 test:
 	pytest -vv
 
 requirements-install:
-	pip3 install -r requirements.txt
+	python3 -m pip install -r requirements.txt
 
 requirements-uninstall:
-	pip3 uninstall -r requirements.txt
+	python3 -m pip uninstall -r requirements.txt
 
 test-readme-renderer:
-	pip3 install --user --upgrade readme-renderer && \
+	python3 -m pip install --user --upgrade readme-renderer && \
 	python3 -m readme_renderer ./README.md -o ./README.html
 
 ################################################################################
@@ -45,14 +45,14 @@ publish-testpy:
 # Installing from test Python repository
 ################################################################################
 
-install-vertere-testpy:
+install-testpy:
 	python3 -m pip install -i https://test.pypi.org/simple/ vertere
 
 ################################################################################
 # Installing from Python repository
 ################################################################################
 
-install-vertere:
+install:
 	python3 -m pip install -i https://test.pypi.org/simple/ vertere
 
 uninstall:

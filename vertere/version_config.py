@@ -25,6 +25,8 @@ class PromoterConfigLoader(object):
 
     def load_config_from_file(self, config_path: str = config_file_name) -> 'VersionConfig':
 
+        config_path = config_path if config_path else self.config_file_name
+
         default_config = VersionConfig()
 
         config_exists = path.exists(config_path)
