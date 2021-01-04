@@ -2,10 +2,6 @@ from vertere.incrementer import Incrementer
 from vertere.version_postfix import VersionPostfix
 
 
-def justify(value):
-    return str(value).rjust(5, '0')
-
-
 class Version(object):
     prefix = ''
     major = 1
@@ -16,19 +12,22 @@ class Version(object):
     def to_hash(self):
         if not self.postfix:
             return (
-                    justify(self.major) +
-                    justify(self.minor) +
-                    justify(self.patch) +
+                    self.__hash_justify__(self.major) +
+                    self.__hash_justify__(self.minor) +
+                    self.__hash_justify__(self.patch) +
                     '99999' +
                     '99999'
             )
         return (
-                justify(self.major) +
-                justify(self.minor) +
-                justify(self.patch) +
-                justify(self.postfix.weight) +
-                justify(self.postfix.seq)
+                self.__hash_justify__(self.major) +
+                self.__hash_justify__(self.minor) +
+                self.__hash_justify__(self.patch) +
+                self.__hash_justify__(self.postfix.weight) +
+                self.__hash_justify__(self.postfix.seq)
         )
+
+    def __hash_justify__(self, value):
+        return str(value).rjust(5, '0')
 
     def __str__(self):
         base_str = f'{self.prefix}{self.major}.{self.minor}.{self.patch}'
