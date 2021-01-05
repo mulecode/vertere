@@ -81,8 +81,22 @@ a version: `1.3.0.RELEASE`
 All tags have a weight value that is used in the version promotion, where this 
 program will use to determine what to promote.
 
-Important! A version without postfix have the highest weight of all configured
+**Important!** A version without postfix have the highest weight of all configured
 postfixes.
+
+Version ordering example: highest to lowest
+
+```
+1.1.0.BUILD-SNAPSHOT
+1.0.0
+1.0.0.RELEASE
+1.0.0.RC1
+1.0.0.M2
+1.0.0.M1
+1.0.0.BUILD-SNAPSHOT 
+```
+
+**Important!** prefixes do not interfere in version ordering
 
 ### Promotion Scenarios - examples
 
@@ -134,3 +148,56 @@ From: `v1.2.4.RELEASE`
 Config: `vertere init --prefix=v --incrementer=MINOR`
 
 Result: `v1.3.0`
+
+### CLI Properties
+```
+vertere --help
+
+Usage: vertere [OPTIONS] [ init | push | read ]
+
+Options:
+
+--initial-version TEXT 
+Required when a project has not been yet initialised. 
+It will determine the initial version for a git project. 
+Default value: 1.0.0
+
+--prefix TEXT
+Optional property that sets a prefix for a version. 
+Default value: '' (empty string)
+Example.: when --prefix=v, the version will be displayed as v1.2.3
+
+--incrementer [ PATCH | MINOR | MAJOR]
+Value that dictates how the next version will be incremented. 
+Default value: PATCH
+
+--postfix TEXT
+Optional property that can be used to append a known postfix to the version.
+It supports [BUILD-SNAPSHOT, M, RC and RELEASE].
+Example: --postfix=RELEASE, the next version will be displayed as 1.2.3.RELEASE. 
+
+--config-path TEXT
+Optional property, used to point to vertere file configuration.
+Default value: vertere.yml
+
+--debug BOOLEAN 
+Enables extra log lines while executing this program. 
+it might help to identify a possible problem. 
+Default value: false
+
+ ```
+
+### File configuration
+
+This CLI program can have the properties persisted in the git project. 
+by default, it tries to load `vertere.yml`
+
+File format example:
+
+```yaml
+versioning:
+  initial-version: 1.0.0.BUILD-SNAPSHOT
+  prefix: v
+  postfix: BUILD-SNAPSHOT | M | RC | RELEASE
+  incrementer: MAJOR | MINOR | PATCH
+```
