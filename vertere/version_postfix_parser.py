@@ -1,28 +1,10 @@
 from vertere.version_postfix import VersionPostfix
-from vertere.version_postfix_loader import VersionPostfixLoader
+from vertere.version_postfix_loader import VersionPostfixLoader, PostfixConfig
 
 
 class VersionPostfixParser(object):
     def __init__(self, version_postfix_loader: VersionPostfixLoader):
         self.version_postfix_loader = version_postfix_loader
-        self.configured_postfixes = []
-        self.__load_configured_postfixes__()
-
-    def __load_configured_postfixes__(self):
-        postfix_list = []
-        data = self.version_postfix_loader.get_all_postfix_configuration()
-        for p in data:
-            config_parsed = self.__parse_postfix_config__(p)
-            postfix_list.append(config_parsed)
-        self.configured_postfixes = postfix_list
-
-    def __parse_postfix_config__(self, value) -> 'PostfixConfig':
-        postfix_config = PostfixConfig()
-        postfix_config.name = value['name']
-        postfix_config.weight = int(value['weight'])
-        postfix_config.with_seq = bool(value['with_seq'])
-        postfix_config.promotable = bool(value['promotable'])
-        return postfix_config
 
     def validate_postfix_name(self, postfix_name: str):
         if not postfix_name:
@@ -33,17 +15,20 @@ class VersionPostfixParser(object):
             )
 
     def find_postfix_config_by_name(self, postfix_name) -> 'PostfixConfig':
+        configured_postfixes = self.version_postfix_loader.get_all_postfix_configuration()
         return next(
             filter(
-                lambda t: t.name == postfix_name, self.configured_postfixes
+                lambda t: t.name == postfix_name, configured_postfixes
             ), None)
 
     def get_postfixes_joined(self) -> str:
-        postfix_list = map(lambda t: t.name, self.configured_postfixes)
+        configured_postfixes = self.version_postfix_loader.get_all_postfix_configuration()
+        postfix_list = map(lambda t: t.name, configured_postfixes)
         return ', '.join(postfix_list)
 
     def count(self) -> int:
-        return len(list(self.configured_postfixes))
+        configured_postfixes = self.version_postfix_loader.get_all_postfix_configuration()
+        return len(list(configured_postfixes))
 
     def parse_postfix(self, postfix_name, seq) -> VersionPostfix:
         postfix_config = self.find_postfix_config_by_name(postfix_name)
@@ -96,17 +81,3 @@ class VersionPostfixParser(object):
 class InvalidVersionPostfixException(Exception):
     """Invalid version postfix"""
     pass
-
-
-class PostfixConfig(object):
-    def __init__(self):
-        self.name = ''
-        self.weight = 1
-        self.with_seq = False
-        self.promotable = False
-
-    def __str__(self):
-        return f'<name: {self.name}, ' \
-               f'weight: {self.weight}, ' \
-               f'with_seq: {self.with_seq}, ' \
-               f'promotable: {self.promotable}>'
