@@ -75,6 +75,9 @@ def validate_initial_version(ctx, param, value):
         raise click.BadParameter(f'Incrementer {value} does not exists.')
 
 
+help_initial_version = 'Used for a project initialisation only. It will determine ' \
+                       'the initial version for a git project. Default value: 1.0.0'
+
 help_description = 'Value that will be displayed as prefix of a version. ' \
                    'Example.: setting this options to --prefix=v, the version will' \
                    ' be displayed as v1.2.3'
@@ -82,10 +85,16 @@ help_description = 'Value that will be displayed as prefix of a version. ' \
 help_incrementer = 'Value that dictates how the version will be incremented. ' \
                    'Default value: PATCH'
 
-help_config_path = 'sdfsdf'
-help_initial_version = 'sdfsdf'
-help_postfix = 'sdfsdf'
-help_action = 'sdf'
+help_config_path = 'Config file path to a yaml file that loads all configurations' \
+                   'for this command line execution. Default value: vertere.yml'
+
+help_postfix = 'Optional property that can be used to append a known postfix to' \
+               'the version. Example: --postfix=RELEASE, the version will be displayed' \
+               'as 1.2.3.RELEASE. It supports [BUILD-SNAPSHOT, M, RC and RELEASE], See' \
+               'README.md for more information.'
+
+help_debug = 'Enables extra log lines while executing this program, that ' \
+             'helps to identify a possible problem. Default value: false'
 
 
 @click.command()
@@ -102,7 +111,7 @@ help_action = 'sdf'
               callback=validate_initial_version, help=help_initial_version)
 @click.option('--config-path', default=None, type=str,
               callback=validate_config_path, help=help_config_path)
-@click.option('--debug', default=False, type=bool)
+@click.option('--debug', default=False, type=bool, help=help_debug)
 def cli(action, prefix, incrementer, postfix, initial_version, config_path, debug):
     try:
 

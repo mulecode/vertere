@@ -53,8 +53,6 @@ class VersionParser(object):
         postfix_name = search_result.group(10)
         seq = search_result.group(11)
 
-        # print(f'parsed: {prefix} {major} {minor} {patch} {tag_name} {seq}')
-
         parsed_version = Version()
         parsed_version.prefix = prefix if prefix else ''
         parsed_version.major = int(major)

@@ -60,7 +60,6 @@ Version with postfix structure:
 1.2.3.<Postfix><Sequencer>
 ```
 
-
 **Details**
 
 BUILD-SNAPSHOT - This postfix is configured to be not promotable, 
@@ -70,10 +69,68 @@ commit it again in the HEAD of the current branch.
  
 Milestone and Release-Candidate (M and RC) - Those are postfixes with auto sequencers,
 if the latest tag have same postfix (M or RC). The `vertere init` command will
-incrementer the sequencer only. example from a tag `1.2.3RC4` -> `1.2.3RC5`
+incrementer the sequencer only. Example from a tag `1.2.3RC4` -> `1.2.3RC5`
+
+RELEASE - This postfix means a end version. Any promotion from a previous 
+version postfix with Release will increment the semantic version. Example from
+`1.2.3.RELEASE` and properties set to `--incrementer=MINOR --postfix=RELEASE` will generate
+a version: `1.3.0.RELEASE`
 
 ### Postfix weights Details
 
-All tags have a weight value that is used in the version promotion. 
-if the previous tag weights less than the next. it will 
-increment the postfix sequencer
+All tags have a weight value that is used in the version promotion, where this 
+program will use to determine what to promote.
+
+Important! A version without postfix have the highest weight of all configured
+postfixes.
+
+### Promotion Scenarios - examples
+
+**Scenario 1:**
+
+From: `v1.2.3`
+
+Config: `--prefix=vv --incrementer=PATCH`
+
+Result: `vv1.2.4`
+
+
+**Scenario 2:**
+
+From: `v1.2.3`
+
+Config: `--prefix=v --incrementer=PATCH --postfix=RC`
+
+Result: `v1.2.4.RC1`
+
+**Scenario 3:**
+
+From: `v1.2.4.RC1`
+
+Config: `--prefix=v --incrementer=PATCH --postfix=RC`
+
+Result: `v1.2.4.RC2`
+
+**Scenario 4:**
+
+From: `v1.2.4.RC2`
+
+Config: `--prefix=v --incrementer=MINOR --postfix=RELEASE`
+
+Result: `v1.2.4.RELEASE`
+
+**Scenario 5:**
+
+From: `v1.2.4.RELEASE`
+
+Config: `--prefix=v --incrementer=MINOR --postfix=RELEASE`
+
+Result: `v1.3.0.RELEASE`
+
+**Scenario 6:**
+
+From: `v1.2.4.RELEASE`
+
+Config: `--prefix=v --incrementer=MINOR`
+
+Result: `v1.3.0`

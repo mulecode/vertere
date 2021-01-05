@@ -7,7 +7,7 @@ from vertere.version_postfix_parser import PostfixConfig, VersionPostfixParser
 
 
 class PromoterConfigLoader(object):
-    config_file_name = 'versioning.yml'
+    config_file_name = 'vertere.yml'
 
     def __init__(self, version_parser: VersionParser,
                  version_postfix_parser: VersionPostfixParser,
