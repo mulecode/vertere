@@ -75,6 +75,23 @@ class VersionPostfixParser(object):
 
         return parsed_postfix
 
+    def is_valid(self, postfix_name, seq) -> bool:
+        postfix_config = self.find_postfix_config_by_name(postfix_name)
+
+        if not postfix_config:
+            return False
+
+        if postfix_config.with_seq and seq is None:
+            return False
+
+        if postfix_config.with_seq and (seq is not None and int(seq) <= 0):
+            return False
+
+        if not postfix_config.with_seq and seq is not None:
+            return False
+
+        return True
+
 
 class InvalidVersionPostfixException(Exception):
     """Invalid version postfix"""

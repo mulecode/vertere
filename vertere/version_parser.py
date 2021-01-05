@@ -37,7 +37,14 @@ class VersionParser(object):
 
     def is_version(self, value: str):
         pattern = re.compile(self.regex_semantic)
-        return bool(pattern.match(str(value)))
+        if not bool(pattern.match(str(value))):
+            return False
+        search_result = pattern.search(str(value))
+        postfix_name = search_result.group(10)
+        seq = search_result.group(11)
+        if postfix_name:
+            return self.version_postfix_parser.is_valid(postfix_name, seq)
+        return True
 
     def parse(self, value: str) -> Version:
         if not self.is_version(value):

@@ -39,6 +39,7 @@ class GitRepository(object):
         except Exception as e:
             print(f'Error deleting the tag - {e}')
 
+
 class GitRepositoryNotInitialisedException(Exception):
     """Git not initialised"""
     pass
