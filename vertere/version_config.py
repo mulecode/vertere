@@ -23,11 +23,11 @@ class PromoterConfigLoader(object):
         if not config_exists:
             raise LoadConfigFileException(f'Error loading config file {config_path} - File does not exists')
 
-    def load_config_from_file(self, config_path: str = config_file_name) -> 'VersionConfig':
+    def load_config_from_file(self, config_path: str = config_file_name) -> 'PromoterConfig':
 
         config_path = config_path if config_path else self.config_file_name
 
-        default_config = VersionConfig()
+        default_config = PromoterConfig()
 
         config_exists = path.exists(config_path)
         if not config_exists:
@@ -57,7 +57,7 @@ class PromoterConfigLoader(object):
 
         return default_config
 
-    def merge(self, config_file: 'VersionConfig', config_cli_override: 'VersionConfig'):
+    def merge(self, config_file: 'PromoterConfig', config_cli_override: 'PromoterConfig'):
         config_file.prefix = \
             config_cli_override.prefix if config_cli_override.prefix else config_file.prefix
         config_file.postfix_config = \
@@ -68,7 +68,7 @@ class PromoterConfigLoader(object):
             config_cli_override.initial_version if config_cli_override.initial_version else config_file.initial_version
 
 
-class VersionConfig(object):
+class PromoterConfig(object):
     prefix = ''
     incrementer = Incrementer.PATCH
     postfix_config: PostfixConfig = None

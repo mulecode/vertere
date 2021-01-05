@@ -1,11 +1,11 @@
 from vertere.version import Version
-from vertere.version_config import VersionConfig
+from vertere.version_config import PromoterConfig
 from vertere.version_postfix import VersionPostfix
 
 
 class VersionPromoter(object):
 
-    def promote(self, current_version: Version, config: VersionConfig) -> None:
+    def promote(self, current_version: Version, config: PromoterConfig) -> None:
 
         if current_version.postfix and config.postfix_config:
             if current_version.postfix.name == config.postfix_config.name and not config.postfix_config.promotable:

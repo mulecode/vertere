@@ -2,7 +2,7 @@ import click
 
 from vertere.git_repository import GitRepository
 from vertere.incrementer import IncrementerParser, Incrementer
-from vertere.version_config import PromoterConfigLoader, VersionConfig
+from vertere.version_config import PromoterConfigLoader, PromoterConfig
 from vertere.version_parser import VersionParser
 from vertere.version_postfix_parser import VersionPostfixLoader, VersionPostfixParser
 from vertere.version_promoter import VersionPromoter
@@ -115,7 +115,7 @@ help_debug = 'Enables extra log lines while executing this program, that ' \
 def cli(action, prefix, incrementer, postfix, initial_version, config_path, debug):
     try:
 
-        config_cli_override = VersionConfig()
+        config_cli_override = PromoterConfig()
         config_cli_override.prefix = prefix
         config_cli_override.postfix_config = postfix
         config_cli_override.incrementer = incrementer

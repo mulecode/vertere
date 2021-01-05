@@ -1,6 +1,6 @@
 from vertere.git_repository import GitRepository
 from vertere.version import Version
-from vertere.version_config import VersionConfig
+from vertere.version_config import PromoterConfig
 from vertere.version_parser import VersionParser
 from vertere.version_promoter import VersionPromoter
 from vertere.version_storage import VersionStorage
@@ -46,7 +46,7 @@ class VersioningService(object):
 
         self.git_repository.tag(current_version)
 
-    def init(self, version_config: VersionConfig):
+    def init(self, version_config: PromoterConfig):
         self.git_repository.validate_git_initialised()
         all_tags = self.git_repository.get_tags()
         current_version = self.__get_highest_semantic__(tags=all_tags)
@@ -55,12 +55,12 @@ class VersioningService(object):
         else:
             self.__setup_new_version__(version_config)
 
-    def __setup_new_version__(self, version_config: VersionConfig):
+    def __setup_new_version__(self, version_config: PromoterConfig):
         self.__require_non_none__(version_config.initial_version, 'initial_version is required.')
         print(f'Initialising project with version: {version_config.initial_version}')
         self.version_storage.persist(version_config.initial_version)
 
-    def __apply_next_version__(self, current_version: Version, version_config: VersionConfig):
+    def __apply_next_version__(self, current_version: Version, version_config: PromoterConfig):
         print(f'Found highest tag: {current_version}')
         self.__require_non_none__(version_config.incrementer, 'incrementer is required.')
 

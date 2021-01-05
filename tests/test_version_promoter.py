@@ -1,7 +1,7 @@
 import pytest as pytest
 
 from vertere.incrementer import Incrementer
-from vertere.version_config import VersionConfig
+from vertere.version_config import PromoterConfig
 from vertere.version_parser import VersionParser
 from vertere.version_postfix_loader import VersionPostfixLoader
 from vertere.version_postfix_parser import VersionPostfixParser
@@ -213,7 +213,7 @@ def test_promote_with(current, incrementer, tag, expected_value):
 
 
 def given_version_config(prefix='', incrementer=Incrementer.PATCH, tag_config=None):
-    version_config = VersionConfig()
+    version_config = PromoterConfig()
     version_config.prefix = prefix
     version_config.incrementer = incrementer
     version_config.postfix_config = tag_config
