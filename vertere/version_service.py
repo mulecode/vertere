@@ -21,19 +21,26 @@ class VersioningService(object):
 
     def push(self):
         current_version = self.version_storage.read()
+        if not current_version:
+            print(f'Cannot push - Nothing to push, Execute init command')
+            return
+
         current_version_parsed = self.version_parser.parse(current_version)
-        postfix_config = self.version_parser.get_version_postfix_parser().find_postfix_config_by_name(
-            current_version_parsed.postfix.name
-        )
         all_tags = self.git_repository.get_tags()
+
         if all_tags:
-            current_version = self.__get_highest_semantic__(tags=all_tags)
-            is_tag_head = self.git_repository.is_tag_head(str(current_version))
+            high_version = self.__get_highest_semantic__(tags=all_tags)
+            is_tag_head = self.git_repository.is_tag_head(str(high_version))
             if is_tag_head:
-                print(f'Cannot push - Tag {current_version} is already in HEAD commit.')
+                print(f'Cannot push - Tag {high_version} is already in HEAD commit.')
                 return
 
-        if not postfix_config.promotable and all_tags:
+        postfix_name = current_version_parsed.postfix.name if current_version_parsed.postfix else None
+        postfix_config = self.version_parser.get_version_postfix_parser().find_postfix_config_by_name(
+            postfix_name
+        )
+
+        if postfix_config and not postfix_config.promotable and all_tags:
             print(f'Will delete tag {current_version} and tag again')
             self.git_repository.delete_tag(current_version)
 

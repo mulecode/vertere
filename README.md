@@ -90,7 +90,7 @@ postfixes.
 
 From: `v1.2.3`
 
-Config: `--prefix=vv --incrementer=PATCH`
+Config: `vertere init --prefix=vv --incrementer=PATCH`
 
 Result: `vv1.2.4`
 
@@ -99,7 +99,7 @@ Result: `vv1.2.4`
 
 From: `v1.2.3`
 
-Config: `--prefix=v --incrementer=PATCH --postfix=RC`
+Config: `vertere init --prefix=v --incrementer=PATCH --postfix=RC`
 
 Result: `v1.2.4.RC1`
 
@@ -107,7 +107,7 @@ Result: `v1.2.4.RC1`
 
 From: `v1.2.4.RC1`
 
-Config: `--prefix=v --incrementer=PATCH --postfix=RC`
+Config: `vertere init --prefix=v --incrementer=PATCH --postfix=RC`
 
 Result: `v1.2.4.RC2`
 
@@ -115,7 +115,7 @@ Result: `v1.2.4.RC2`
 
 From: `v1.2.4.RC2`
 
-Config: `--prefix=v --incrementer=MINOR --postfix=RELEASE`
+Config: `vertere init --prefix=v --incrementer=MINOR --postfix=RELEASE`
 
 Result: `v1.2.4.RELEASE`
 
@@ -123,7 +123,7 @@ Result: `v1.2.4.RELEASE`
 
 From: `v1.2.4.RELEASE`
 
-Config: `--prefix=v --incrementer=MINOR --postfix=RELEASE`
+Config: `vertere init --prefix=v --incrementer=MINOR --postfix=RELEASE`
 
 Result: `v1.3.0.RELEASE`
 
@@ -131,6 +131,6 @@ Result: `v1.3.0.RELEASE`
 
 From: `v1.2.4.RELEASE`
 
-Config: `--prefix=v --incrementer=MINOR`
+Config: `vertere init --prefix=v --incrementer=MINOR`
 
 Result: `v1.3.0`
