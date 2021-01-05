@@ -2,7 +2,7 @@ import click
 
 from vertere.git_repository import GitRepository
 from vertere.incrementer import IncrementerParser, Incrementer
-from vertere.version_config import PromoterConfigLoader, PromoterConfig
+from vertere.promoter_config import PromoterConfigLoader, PromoterConfig
 from vertere.version_parser import VersionParser
 from vertere.version_postfix_parser import VersionPostfixLoader, VersionPostfixParser
 from vertere.version_promoter import VersionPromoter

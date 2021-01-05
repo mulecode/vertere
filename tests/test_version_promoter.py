@@ -1,7 +1,7 @@
 import pytest as pytest
 
 from vertere.incrementer import Incrementer
-from vertere.version_config import PromoterConfig
+from vertere.promoter_config import PromoterConfig
 from vertere.version_parser import VersionParser
 from vertere.version_postfix_loader import VersionPostfixLoader
 from vertere.version_postfix_parser import VersionPostfixParser

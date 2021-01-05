@@ -1,6 +1,6 @@
 from vertere.git_repository import GitRepository
+from vertere.promoter_config import PromoterConfig
 from vertere.version import Version
-from vertere.version_config import PromoterConfig
 from vertere.version_parser import VersionParser
 from vertere.version_promoter import VersionPromoter
 from vertere.version_storage import VersionStorage

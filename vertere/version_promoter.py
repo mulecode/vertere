@@ -1,5 +1,5 @@
+from vertere.promoter_config import PromoterConfig
 from vertere.version import Version
-from vertere.version_config import PromoterConfig
 from vertere.version_postfix import VersionPostfix
 
 
