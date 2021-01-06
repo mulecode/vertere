@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
     name='vertere',
     packages=find_packages(include=['vertere', 'data']),
-    version='1.0.0',
+    version='1.0.0.dev1',
     description='Vertere is a simple semantic versioning cli program that uses git tags for persisting',
     long_description=long_description,
     long_description_content_type='text/markdown',

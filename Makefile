@@ -5,9 +5,6 @@
 install-locally:
 	python3 -m pip install -e .
 
-uninstall:
-	python3 -m pip uninstall vertere
-
 test:
 	pytest -vv
 
@@ -38,7 +35,7 @@ package:
 install-publish-dependency:
 	python3 -m pip install --user --upgrade twine
 
-publish-testpy:
+publish-testpy: package
 	python3 -m twine upload --repository testpypi dist/*
 
 ################################################################################
@@ -52,7 +49,7 @@ install-testpy:
 # Installing from Python repository
 ################################################################################
 
-install:
+install-test-pypi:
 	python3 -m pip install -i https://test.pypi.org/simple/ vertere
 
 uninstall:
