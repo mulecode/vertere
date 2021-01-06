@@ -1,0 +1,26 @@
+[
+  {
+    "name": "BUILD-SNAPSHOT",
+    "weight": 10,
+    "with_seq": false,
+    "promotable" : false
+  },
+  {
+    "name": "M",
+    "weight": 20,
+    "with_seq": true,
+    "promotable" : true
+  },
+  {
+    "name": "RC",
+    "weight": 30,
+    "with_seq": true,
+    "promotable" : true
+  },
+  {
+    "name": "RELEASE",
+    "weight": 40,
+    "with_seq": false,
+    "promotable" : true
+  }
+]
