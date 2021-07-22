@@ -38,19 +38,18 @@ install-publish-dependency:
 publish-testpy: package
 	python3 -m twine upload --repository testpypi dist/*
 
+publish-testpy: package
+	python3 -m twine upload --repository pypi dist/*
+
 ################################################################################
-# Installing from test Python repository
+# Installing
 ################################################################################
 
 install-testpy:
 	python3 -m pip install -i https://test.pypi.org/simple/ vertere
 
-################################################################################
-# Installing from Python repository
-################################################################################
-
-install-test-pypi:
-	python3 -m pip install -i https://test.pypi.org/simple/ vertere
+install-py:
+	python3 -m pip install vertere
 
 uninstall:
 	python3 -m pip uninstall vertere
