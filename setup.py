@@ -16,7 +16,7 @@ setup(
     license='MIT',
     install_requires=[
         'click==8.0.1',
-        'GitPython==3.1.18',
+        'GitPython==3.1.37',
         'PyYAML==5.4.1'
     ],
     setup_requires=[
