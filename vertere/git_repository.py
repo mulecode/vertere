@@ -1,24 +1,45 @@
+"""
+Module to handle git repository operations
+"""
 import os
-from git import Repo
 from os import path
+
+from git import Repo
 
 
 class GitRepository(object):
+    """
+    Class to handle git repository operations
+    """
+
     def __init__(self):
         self.git_repository = Repo('.git')
 
-    def validate_git_initialised(self):
+    def validate_git_initialised(self) -> None:
+        """
+        Validate if git is initialized
+        """
         pwd = os.getcwd()
-        git_initialised = path.exists(f'{pwd}/.git')
+        git_initialised = path.exists(f"{pwd}/.git")
         if not git_initialised:
-            raise GitRepositoryNotInitialisedException()
+            raise GitRepositoryNotInitialisedException(f"Path for {pwd}/.git not initialized.")
 
     def get_tags(self):
         tags = self.git_repository.tags
         return list(tags)
 
+    def get_head_commit(self) -> str:
+        """
+        Get head commit
+        :return: Commit hash
+        """
+        try:
+            return str(self.git_repository.head.commit)
+        except Exception as e:
+            raise GitRepositoryHeadCommitException(f"Failed to retrieve head commit - {e}")
+
     def is_tag_head(self, tag_name: str):
-        head_commit = self.git_repository.head.commit
+        head_commit = self.get_head_commit()
         commit_by_tag = self.git_repository.commit(tag_name)
         if str(head_commit) == str(commit_by_tag):
             return True
@@ -41,5 +62,10 @@ class GitRepository(object):
 
 
 class GitRepositoryNotInitialisedException(Exception):
-    """Git not initialised"""
+    """Git not initialized"""
+    pass
+
+
+class GitRepositoryHeadCommitException(Exception):
+    """Head commit not found"""
     pass

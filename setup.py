@@ -5,8 +5,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name='vertere',
-    packages=find_packages(include=['vertere', 'data']),
-    version='1.0.0.dev2',
+    packages=find_packages(include=['vertere', 'vertere.data']),
+    version='1.1.0',
     description='Vertere is a simple semantic versioning cli program that uses git tags for persisting',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -14,17 +14,18 @@ setup(
     author_email='rafael@mulecode.co.uk',
     url='https://github.com/mulecode/vertere',
     license='MIT',
+    license_files=['LICENSE'],
     install_requires=[
-        'click==8.0.1',
-        'GitPython==3.1.18',
-        'PyYAML==5.4.1'
+        'click==8.1.7',
+        'GitPython==3.1.41',
+        'PyYAML==6.0.1'
     ],
     setup_requires=[
         'pytest-runner'
     ],
     tests_require=[
-        'pytest==6.2.1',
-        'pytest-mock==3.4.0'
+        'pytest==7.4.4',
+        'pytest-mock==3.12.0'
     ],
     test_suite='tests',
     include_package_data=True,

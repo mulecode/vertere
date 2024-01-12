@@ -22,33 +22,30 @@ test-readme-renderer:
 # Packaging
 ################################################################################
 
-install-package-dependency:
-	python3 -m pip install --user --upgrade setuptools wheel
-
 package:
-	python3 setup.py sdist bdist_wheel
+	python3 -m pip install --user --upgrade setuptools wheel build && \
+	python3 -m build && \
+	python3 -m pip install --use-pep517 . && \
+	python3 -m pip install --user --upgrade twine
 
 ################################################################################
 # Publishing
 ################################################################################
 
-install-publish-dependency:
-	python3 -m pip install --user --upgrade twine
-
-publish-testpy: package
+publish-testpypi:
 	python3 -m twine upload --repository testpypi dist/*
 
-publish-testpy: package
+publish-pypi:
 	python3 -m twine upload --repository pypi dist/*
 
 ################################################################################
 # Installing
 ################################################################################
 
-install-testpy:
+install-testpypi:
 	python3 -m pip install -i https://test.pypi.org/simple/ vertere
 
-install-py:
+install-pypi:
 	python3 -m pip install vertere
 
 uninstall:
